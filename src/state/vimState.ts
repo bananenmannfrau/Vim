@@ -1,19 +1,19 @@
+import { Nvim } from 'promised-neovim-client';
 import * as vscode from 'vscode';
-import EditorIdentity from './../editorIdentity';
 
-import { HistoryTracker } from './../history/historyTracker';
-import { EasyMotion } from './../actions/plugins/easymotion/easymotion';
-import { BaseMovement } from './../actions/motion';
-import { Range } from './../common/motion/range';
-import { Position } from './../common/motion/position';
-import { GlobalState } from './../state/globalState';
-import { ReplaceState } from './../state/replaceState';
 import { Mode, ModeName } from '../mode/mode';
 import { ModeHandler } from '../mode/modeHandler';
-import { RegisterMode } from './../register/register';
+import { BaseMovement } from './../actions/motion';
+import { EasyMotion } from './../actions/plugins/easymotion/easymotion';
+import { Position } from './../common/motion/position';
+import { Range } from './../common/motion/range';
+import EditorIdentity from './../editorIdentity';
+import { HistoryTracker } from './../history/historyTracker';
 import { VisualBlockMode } from './../mode/modeVisualBlock';
+import { RegisterMode } from './../register/register';
+import { GlobalState } from './../state/globalState';
+import { ReplaceState } from './../state/replaceState';
 import { RecordedState } from './recordedState';
-import { Nvim } from 'promised-neovim-client';
 
 /**
  * The VimState class holds permanent state that carries over from action
