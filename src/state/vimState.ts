@@ -38,9 +38,6 @@ export class VimState {
 
   public easyMotion: EasyMotion;
 
-  /**
-   * Just for debugging!!
-   */
   public identity: EditorIdentity;
 
   public editor: vscode.TextEditor;
@@ -55,9 +52,11 @@ export class VimState {
    */
   public isMultiCursor = false;
 
-  // Is the multicursor something like visual block "multicursor", where
-  // natively in vim there would only be one cursor whose changes were applied
-  // to all lines after edit.
+  /**
+   * Is the multicursor something like visual block "multicursor", where
+   * natively in vim there would only be one cursor whose changes were applied
+   * to all lines after edit.
+   */
   public isFakeMultiCursor = false;
 
   /**

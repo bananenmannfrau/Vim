@@ -88,8 +88,7 @@ export async function getAndUpdateModeHandler(): Promise<ModeHandler> {
   // Temporary workaround for vscode bug not changing cursor style properly
   // https://github.com/Microsoft/vscode/issues/17472
   // https://github.com/Microsoft/vscode/issues/17513
-  const options = curHandler.vimState.editor.options;
-  const desiredStyle = options.cursorStyle;
+  const desiredStyle = curHandler.vimState.editor.options.cursorStyle;
 
   // Temporarily change to any other cursor style besides the desired type, then change back
   if (desiredStyle === vscode.TextEditorCursorStyle.Block) {
@@ -298,9 +297,6 @@ export async function activate(context: vscode.ExtensionContext) {
       continue;
     }
     let keyToBeBound = '';
-    /**
-     * On OSX, handle mac keybindings if we specified one.
-     */
     if (process.platform === 'darwin') {
       keyToBeBound = keybinding.mac || keybinding.key;
     } else if (process.platform === 'linux') {
@@ -309,9 +305,8 @@ export async function activate(context: vscode.ExtensionContext) {
       keyToBeBound = keybinding.key;
     }
 
-    const bracketedKey = Notation.Normalize(keyToBeBound);
-
     // Store registered key bindings in bracket notation form
+    const bracketedKey = Notation.Normalize(keyToBeBound);
     Configuration.boundKeyCombinations.push(bracketedKey);
 
     registerCommand(context, keybinding.command, () => handleKeyEvent(`${bracketedKey}`));
@@ -335,7 +330,7 @@ function overrideCommand(
   command: string,
   callback: (...args: any[]) => any
 ) {
-  let disposable = vscode.commands.registerCommand(command, async args => {
+  const disposable = vscode.commands.registerCommand(command, async args => {
     if (Configuration.disableExt) {
       await vscode.commands.executeCommand('default:' + command, args);
       return;
